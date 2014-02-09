@@ -7,6 +7,7 @@ enum SlotType{
 }
 
 class Slot{
+  private String key;
   private SlotType type;
   private boolean isEmpty;
   private boolean onRail;
@@ -15,7 +16,7 @@ class Slot{
 }
 
 public class Board {
-  public static int BOARD_ROW = 13;
+  public static int BOARD_ROW = 12;
   public static int BOARD_COL = 5;
   
   private Slot [][] board;
