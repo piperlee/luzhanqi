@@ -13,6 +13,10 @@ class Slot{
   private boolean onRail;
   private ArrayList<Slot> adjSlots;
   private Piece curPiece;
+  
+  public void setPiece(Piece p){
+    this.curPiece = p; 
+  }
 }
 
 public class Board {
@@ -23,6 +27,10 @@ public class Board {
   
   public Board(){
     initiateBoard();  
+  }
+  public boolean placePiece(int i, int j, Piece p){
+    board[i][j].setPiece(p);
+    return true;    
   }
   
   public Slot[][] getBoard(){

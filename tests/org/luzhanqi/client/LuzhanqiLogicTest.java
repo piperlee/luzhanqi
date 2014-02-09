@@ -15,6 +15,7 @@ import org.luzhanqi.client.GameApi.Set;
 import org.luzhanqi.client.GameApi.SetVisibility;
 import org.luzhanqi.client.GameApi.VerifyMove;
 import org.luzhanqi.client.GameApi.VerifyMoveDone;
+import org.luzhanqi.client.Piece.PieceType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -88,46 +89,84 @@ public class LuzhanqiLogicTest {
   private final List<Operation> arrangePiecesW = ImmutableList.<Operation>of(
       // Black always starts first
       new Set(turn,B),
-      new Set(W, placePieces()),
+      new Set("SL0", placePiece("SL0","WP0")), new Set("SL1", placePiece("SL1","WP24")),
+      new Set("SL2", placePiece("SL2","WP1")), new Set("SL3", placePiece("SL3","WP23")),
+      new Set("SL4", placePiece("SL4","WP2")), new Set("SL5", placePiece("SL5","WP22")),
+      new Set("SL6", placePiece("SL6","WP3")), new Set("SL7", placePiece("SL7","WP21")),
+      new Set("SL8", placePiece("SL8","WP4")), new Set("SL9", placePiece("SL9","WP20")),
+      new Set("SL10", placePiece("SL10","WP5")), new Set("SL11", placePiece("SL11",null)),
+      new Set("SL12", placePiece("SL12","WP6")), new Set("SL13", placePiece("SL13",null)),
+      new Set("SL14", placePiece("SL14","WP7")), new Set("SL15", placePiece("SL15","WP19")),
+      new Set("SL16", placePiece("SL16","WP8")), new Set("SL17", placePiece("SL17",null)),
+      new Set("SL18", placePiece("SL18","WP9")), new Set("SL19", placePiece("SL19","WP18")),
+      new Set("SL20", placePiece("SL20","WP10")), new Set("SL21", placePiece("SL21",null)),
+      new Set("SL22", placePiece("SL22","WP11")), new Set("SL23", placePiece("SL23",null)),
+      new Set("SL24", placePiece("SL24","WP12")), new Set("SL25", placePiece("SL25","WP17")),
+      new Set("SL26", placePiece("SL26","WP13")), new Set("SL27", placePiece("SL27","WP16")),
+      new Set("SL28", placePiece("SL28","WP14")), new Set("SL29", placePiece("SL29","WP15")),
       new Set(W, ready));
-  
-  private final List<Operation> arrangePiecesLastW = ImmutableList.<Operation>of(
-      // Black always starts first
-      new Set(turn,B),
-      new Set(W, placePieces()),
-      new Set(W, ready),
-      new SetVisibility("SL0"), new SetVisibility("SL1"), new SetVisibility("SL2"),
-      new SetVisibility("SL3"), new SetVisibility("SL4"), new SetVisibility("SL5"),
-      new SetVisibility("SL6"), new SetVisibility("SL7"), new SetVisibility("SL8"),
-      new SetVisibility("SL9"), new SetVisibility("SL10"), new SetVisibility("SL11"),
-      new SetVisibility("SL12"), new SetVisibility("SL13"), new SetVisibility("SL14"),
-      new SetVisibility("SL15"), new SetVisibility("SL16"), new SetVisibility("SL17"),
-      new SetVisibility("SL18"), new SetVisibility("SL19"), new SetVisibility("SL120"),
-      new SetVisibility("SL21"), new SetVisibility("SL22"), new SetVisibility("SL23"),
-      new SetVisibility("SL24"), new SetVisibility("SL25"), new SetVisibility("SL26"),
-      new SetVisibility("SL27"), new SetVisibility("SL28"), new SetVisibility("SL29"),
-      new SetVisibility("SL30"), new SetVisibility("SL31"), new SetVisibility("SL32"),
-      new SetVisibility("SL33"), new SetVisibility("SL34"), new SetVisibility("SL35"),
-      new SetVisibility("SL36"), new SetVisibility("SL37"), new SetVisibility("SL38"),
-      new SetVisibility("SL39"), new SetVisibility("SL40"), new SetVisibility("SL41"),
-      new SetVisibility("SL42"), new SetVisibility("SL43"), new SetVisibility("SL44"),
-      new SetVisibility("SL45"), new SetVisibility("SL46"), new SetVisibility("SL47"),
-      new SetVisibility("SL48"), new SetVisibility("SL49"), new SetVisibility("SL50"),
-      new SetVisibility("SL51"), new SetVisibility("SL52"), new SetVisibility("SL53"),
-      new SetVisibility("SL54"), new SetVisibility("SL55"), new SetVisibility("SL56"),
-      new SetVisibility("SL57"), new SetVisibility("SL58"), new SetVisibility("SL59"));
   
   private final List<Operation> arrangePiecesB = ImmutableList.<Operation>of(
       // Black always starts first
       new Set(turn,B),
-      new Set(B, placePieces()),
+      new Set("SL30", placePiece("SL30","BP0")), new Set("SL31", placePiece("SL31","BP13")),
+      new Set("SL32", placePiece("SL32","BP1")), new Set("SL33", placePiece("SL33","BP23")),
+      new Set("SL34", placePiece("SL34","BP2")), new Set("SL35", placePiece("SL35","BP22")),
+      new Set("SL36", placePiece("SL36",null)), new Set("SL37", placePiece("SL37","BP21")),
+      new Set("SL38", placePiece("SL38",null)), new Set("SL39", placePiece("SL39","BP20")),
+      new Set("SL40", placePiece("SL40","BP5")), new Set("SL41", placePiece("SL41","BP3")),
+      new Set("SL42", placePiece("SL42",null)), new Set("SL43", placePiece("SL43","BP4")),
+      new Set("SL44", placePiece("SL44","BP7")), new Set("SL45", placePiece("SL45","BP19")),
+      new Set("SL46", placePiece("SL46",null)), new Set("SL47", placePiece("SL47","BP6")),
+      new Set("SL48", placePiece("SL58",null)), new Set("SL49", placePiece("SL49","BP18")),
+      new Set("SL50", placePiece("SL50","BP10")), new Set("SL51", placePiece("SL51","BP8")),
+      new Set("SL52", placePiece("SL52","BP11")), new Set("SL53", placePiece("SL53","BP9")),
+      new Set("SL54", placePiece("SL54","BP12")), new Set("SL55", placePiece("SL55","BP17")),
+      new Set("SL56", placePiece("SL56","BP24")), new Set("SL57", placePiece("SL57","BP16")),
+      new Set("SL58", placePiece("SL58","BP14")), new Set("SL59", placePiece("SL59","BP15")),
       new Set(B, ready));
   
-  private final List<Operation> arrangePiecesLastB = ImmutableList.<Operation>of(
-      // Black always starts first
+  private final List<Operation> illegalArrangePiecesW = ImmutableList.<Operation>of(
+      // Black always starts first, Camp must be empty
       new Set(turn,B),
-      new Set(B, placePieces()),
-      new Set(B, ready),
+      new Set("SL0", placePiece("SL0","WP0")), new Set("SL1", placePiece("SL1","WP24")),
+      new Set("SL2", placePiece("SL2","WP1")), new Set("SL3", placePiece("SL3","WP23")),
+      new Set("SL4", placePiece("SL4","WP2")), new Set("SL5", placePiece("SL5","WP22")),
+      new Set("SL6", placePiece("SL6","WP3")), new Set("SL7", placePiece("SL7","WP21")),
+      new Set("SL8", placePiece("SL8","WP4")), new Set("SL9", placePiece("SL9",null)),
+      new Set("SL10", placePiece("SL10","WP5")), new Set("SL11", placePiece("SL11","WP20")),
+      new Set("SL12", placePiece("SL12","WP6")), new Set("SL13", placePiece("SL13",null)),
+      new Set("SL14", placePiece("SL14","WP7")), new Set("SL15", placePiece("SL15","WP19")),
+      new Set("SL16", placePiece("SL16","WP8")), new Set("SL17", placePiece("SL17",null)),
+      new Set("SL18", placePiece("SL18","WP9")), new Set("SL19", placePiece("SL19","WP18")),
+      new Set("SL20", placePiece("SL20","WP10")), new Set("SL21", placePiece("SL21",null)),
+      new Set("SL22", placePiece("SL22","WP11")), new Set("SL23", placePiece("SL23",null)),
+      new Set("SL24", placePiece("SL24","WP12")), new Set("SL25", placePiece("SL25","WP17")),
+      new Set("SL26", placePiece("SL26","WP13")), new Set("SL27", placePiece("SL27","WP16")),
+      new Set("SL28", placePiece("SL28","WP14")), new Set("SL29", placePiece("SL29","WP15")),
+      new Set(W, ready));
+  
+  private final List<Operation> illegalArrangePiecesB = ImmutableList.<Operation>of(
+      // Black always starts first, flag must be in basement SL58 or SL56
+      new Set(turn,W),
+      new Set("SL30", placePiece("SL30","BP0")), new Set("SL31", placePiece("SL31","BP13")),
+      new Set("SL32", placePiece("SL32","BP1")), new Set("SL33", placePiece("SL33","BP23")),
+      new Set("SL34", placePiece("SL34","BP2")), new Set("SL35", placePiece("SL35","BP22")),
+      new Set("SL36", placePiece("SL36",null)), new Set("SL37", placePiece("SL37","BP21")),
+      new Set("SL38", placePiece("SL38",null)), new Set("SL39", placePiece("SL39","BP20")),
+      new Set("SL40", placePiece("SL40","BP5")), new Set("SL41", placePiece("SL41","BP3")),
+      new Set("SL42", placePiece("SL42",null)), new Set("SL43", placePiece("SL43","BP4")),
+      new Set("SL44", placePiece("SL44","BP7")), new Set("SL45", placePiece("SL45","BP19")),
+      new Set("SL46", placePiece("SL46",null)), new Set("SL47", placePiece("SL47","BP6")),
+      new Set("SL48", placePiece("SL48",null)), new Set("SL49", placePiece("SL49","BP18")),
+      new Set("SL50", placePiece("SL50","BP10")), new Set("SL51", placePiece("SL51","BP8")),
+      new Set("SL52", placePiece("SL52","BP11")), new Set("SL53", placePiece("SL53","BP9")),
+      new Set("SL54", placePiece("SL54","BP12")), new Set("SL55", placePiece("SL55","BP17")),
+      new Set("SL56", placePiece("SL56","BP15")), new Set("SL57", placePiece("SL57","BP16")),
+      new Set("SL58", placePiece("SL58","BP14")), new Set("SL59", placePiece("SL59","BP24")),
+      new Set(B,ready));
+  
+  private final List<Operation> firstMoveOfB = ImmutableList.<Operation>of(
       new SetVisibility("SL0"), new SetVisibility("SL1"), new SetVisibility("SL2"),
       new SetVisibility("SL3"), new SetVisibility("SL4"), new SetVisibility("SL5"),
       new SetVisibility("SL6"), new SetVisibility("SL7"), new SetVisibility("SL8"),
@@ -147,25 +186,16 @@ public class LuzhanqiLogicTest {
       new SetVisibility("SL48"), new SetVisibility("SL49"), new SetVisibility("SL50"),
       new SetVisibility("SL51"), new SetVisibility("SL52"), new SetVisibility("SL53"),
       new SetVisibility("SL54"), new SetVisibility("SL55"), new SetVisibility("SL56"),
-      new SetVisibility("SL57"), new SetVisibility("SL58"), new SetVisibility("SL59"));
-
-  private final List<Operation> illegalArrangePiecesLastB = ImmutableList.<Operation>of(
+      new SetVisibility("SL57"), new SetVisibility("SL58"), new SetVisibility("SL59"),
+      new Set(turn,W),      
+      new Set(B, moveFromTo(1,2,3,4)));
+  
+  private final List<Operation> illegalFirstMoveOfB = ImmutableList.<Operation>of(
       // Black always starts first
-      new Set(turn,B),
-      new Set(B, placePieces()),
-      new Set(B, ready),
       new SetVisibility("SL0"), new SetVisibility("SL1"), new SetVisibility("SL2"),
-      new SetVisibility("SL3"), new SetVisibility("SL4"));
-  
-  private final List<Operation> illegalArrangePiecesW = ImmutableList.<Operation>of(
-      // Black always starts first
-      new Set(turn,B),
-      new Set(W, placePieces()));
-  
-  private final List<Operation> illegalArrangePiecesB = ImmutableList.<Operation>of(
-      // Black always starts first
+      new SetVisibility("SL3"), new SetVisibility("SL4"),
       new Set(turn,W),
-      new Set(W, placePieces()));
+      new Set(B, moveFromTo(1,2,3,4)));
   
   private final List<Operation> moveOfW = ImmutableList.<Operation>of(
       new Set(turn,B),
@@ -212,9 +242,22 @@ public class LuzhanqiLogicTest {
         lastState, lastMove, lastMovePlayerId);
   }
   
-  private Board placePieces(){
-    return board;  
+  private String placePiece(String slKey, String pKey){
+    int slId = Integer.valueOf(slKey.substring(2));
+    int i = slId / board.BOARD_ROW;
+    int j = slId % board.BOARD_COL;
+    if (pKey != null){
+      int pId = Integer.valueOf(pKey.substring(1));
+      if (pKey.charAt(0) == 'B')
+        board.placePiece(i, j, BH.get(pId));
+      else
+        board.placePiece(i, j, WH.get(pId));
+    }else{
+      board.placePiece(i, j, null);
+    }
+    return pKey;  
   }
+  
   
   private Board moveFromTo(int i1, int j1, int i2, int j2){
     return board;   
@@ -327,24 +370,9 @@ public class LuzhanqiLogicTest {
   }
   
   @Test
-  public void testArrangePiecesLastB() {
-    assertMoveOk(move(wId, turnOfB ,bId, turnOfS, arrangePiecesLastB));
-  }
-  
-  @Test
-  public void testIllegalArrangePiecesLastB() {
-    assertMoveOk(move(wId, turnOfB ,bId, turnOfS, illegalArrangePiecesLastB));
-  }
-  
-  @Test
   public void testArrangePiecesW() {
     assertMoveOk(move(bId, turnOfB , wId, turnOfS, arrangePiecesW));
-  }
-  
-  @Test
-  public void testArrangePiecesLastW() {
-    assertMoveOk(move(bId, turnOfB , wId, turnOfS, arrangePiecesLastW));
-  }
+  }  
 
   @Test
   public void testIllegalArrangePiecesWrongPositionW() {
@@ -360,6 +388,16 @@ public class LuzhanqiLogicTest {
   public void testIllegalArrangePiecesWrongNumberB() {
     assertHacker(move(wId, turnOfB, bId, turnOfS, illegalArrangePiecesB));
   } 
+  
+  @Test
+  public void testFirstMoveOfB() {
+    assertMoveOk(move(wId, turnOfB ,bId, turnOfS, firstMoveOfB));
+  }
+  
+  @Test
+  public void testIllegalFirstMoveOfB() {
+    assertMoveOk(move(wId, turnOfB ,bId, turnOfS, illegalFirstMoveOfB));
+  }
  
   @Test
   public void testMoveOfW() {

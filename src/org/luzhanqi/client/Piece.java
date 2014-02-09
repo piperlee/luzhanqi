@@ -13,13 +13,25 @@ package org.luzhanqi.client;
 //21-23, three Landmines 0
 //24, one Flag 0
 
-enum PieceType{
-  FIELDMARSHAL, GENERAL, MAJORGENERAL, BRIGADIERGENERAL,
-  COLONEL, MAJOR, CAPTAIN, LIEUTENANT, ENGINEER, BOMB,
-  LANDMINE, FLAG  
-}
+
 
 public class Piece {
+  
+  public enum PieceType{
+    FIELDMARSHAL(9), GENERAL(8), MAJORGENERAL(7), BRIGADIERGENERAL(6),
+    COLONEL(5), MAJOR(4), CAPTAIN(3), LIEUTENANT(2), ENGINEER(1),
+    BOMB(0), LANDMINE(0), FLAG(0);
+    
+    private final int rank;
+    PieceType(int r){
+      this.rank = r;
+    }
+    public int getValue(){
+      return rank;
+    }
+    
+  }
+  
   private String key;
   private int order;
   private PieceType face;
