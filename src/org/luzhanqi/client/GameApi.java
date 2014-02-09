@@ -1,7 +1,6 @@
 package org.luzhanqi.client;
 //Download from 
 //https://github.com/yoav-zibin/cheat-game/blob/master/eclipse/src/org/cheat/client/GameApi.java
-//package org.cheat.client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
