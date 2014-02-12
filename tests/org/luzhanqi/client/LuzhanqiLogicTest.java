@@ -202,23 +202,17 @@ public class LuzhanqiLogicTest {
 
   @Test
   public void testInitialMove() {
-    VerifyMove verifyMove = vMove(bId,emptyState,initialMoveB);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(0, verifyDone.getHackerPlayerId());
+    assertMoveOk(vMove(bId,emptyState,initialMoveB));
   }
 
   @Test
   public void testInitialMoveByWrongPlayer() {
-    VerifyMove verifyMove = vMove(wId,emptyState,initialMoveB);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(wId,emptyState,initialMoveB));
   }
 
   @Test
   public void testInitialMoveFromNonEmptyState() {
-    VerifyMove verifyMove = vMove(bId,nonEmptyState,initialMoveB);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,nonEmptyState,initialMoveB));
   }
 
   @Test
@@ -245,10 +239,8 @@ public class LuzhanqiLogicTest {
                 25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49)),     
         new Set(D, ImmutableList.of()),
         new Set(S,READY));
-       
-    VerifyMove verifyMove = vMove(bId,emptyState,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    
+    assertHacker(vMove(bId,emptyState,move));
   }
   
   @Test
@@ -276,9 +268,7 @@ public class LuzhanqiLogicTest {
         new SetVisibility(W),
         new SetVisibility(B));
    
-    VerifyMove verifyMove = vMove(bId,initialState,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(0, verifyDone.getHackerPlayerId());
+    assertMoveOk(vMove(bId,initialState,move));
   }
   
   @Test
@@ -304,9 +294,7 @@ public class LuzhanqiLogicTest {
             25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49)),     
         new Set(D, ImmutableList.of()));
     
-    VerifyMove verifyMove = vMove(bId,initialState,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,initialState,move));
   }
   
   @Test
@@ -332,9 +320,7 @@ public class LuzhanqiLogicTest {
             25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49)),     
         new Set(D, ImmutableList.of()));
     
-    VerifyMove verifyMove = vMove(bId,initialState,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,initialState,move));
   }
 
   @Test
@@ -360,9 +346,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(0, verifyDone.getHackerPlayerId());
+    assertMoveOk(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -388,9 +372,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(0, verifyDone.getHackerPlayerId());
+    assertMoveOk(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -415,10 +397,8 @@ public class LuzhanqiLogicTest {
         new Set(D, ImmutableList.of(
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
-
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(0, verifyDone.getHackerPlayerId());
+    
+    assertMoveOk(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -443,10 +423,8 @@ public class LuzhanqiLogicTest {
         new Set(D, ImmutableList.of(
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,22,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
-
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(0, verifyDone.getHackerPlayerId());
+    
+    assertMoveOk(vMove(bId,oldStateB,move));
   }
 
   @Test
@@ -472,9 +450,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   } 
   
   @Test
@@ -500,9 +476,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -528,9 +502,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -556,9 +528,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());;
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -584,9 +554,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -612,9 +580,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,22,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,41,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -639,10 +605,8 @@ public class LuzhanqiLogicTest {
         new Set(D, ImmutableList.of(
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
-
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -668,9 +632,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   } 
   
   @Test
@@ -696,9 +658,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -724,9 +684,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));    
   }
 
   @Test
@@ -752,9 +710,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,22,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,41,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -780,9 +736,7 @@ public class LuzhanqiLogicTest {
             1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,23,
             25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
 
-    VerifyMove verifyMove = vMove(bId,oldStateB,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(verifyMove.getLastMovePlayerId(), verifyDone.getHackerPlayerId());
+    assertHacker(vMove(bId,oldStateB,move));
   }
   
   @Test
@@ -829,9 +783,6 @@ public class LuzhanqiLogicTest {
           1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,
           25,26,27,28,29,30,31,32,34,35,36,37,38,39,40,43,44,45,46)));
     
-    VerifyMove verifyMove = vMove(bId,state,move);
-    VerifyMoveDone verifyDone = new LuzhanqiLogic().verify(verifyMove);
-    assertEquals(0, verifyDone.getHackerPlayerId());
-    //assertMoveOk(vMove(bId,state,move));
+    assertMoveOk(vMove(bId,state,move));
   }  
 }
