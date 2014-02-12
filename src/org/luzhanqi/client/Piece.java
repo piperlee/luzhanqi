@@ -29,18 +29,17 @@ public class Piece {
     public int getValue(){
       return rank;
     }
-    
   }
   
-  private String key;
+  private int key; // 0-24 white, 25-49 black
   private int order;
   private PieceType face;
   
-  public Piece(String k){
+  public Piece(int k){
     this.key = k;
   }
   
-  public String getKey(){
+  public int getKey(){
     return this.key;
   }
   
@@ -52,7 +51,7 @@ public class Piece {
     return this.face;
   }
   
-  public void setKey(String k){
+  public void setKey(int k){
     this.key = k;
   }
   

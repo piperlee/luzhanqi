@@ -7,7 +7,7 @@ enum SlotType{
 }
 
 class Slot{
-  private String key;
+  private int key;
   private SlotType type;
   private boolean isEmpty;
   private boolean onRail;
