@@ -8,7 +8,6 @@ import org.luzhanqi.client.GameApi.Set;
 import org.luzhanqi.client.GameApi.SetVisibility;
 import org.luzhanqi.client.GameApi.VerifyMove;
 import org.luzhanqi.client.GameApi.VerifyMoveDone;
-//import org.luzhanqi.client.Piece.PieceType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
