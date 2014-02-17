@@ -116,9 +116,9 @@ public class LuzhanqiLogicTest {
    
   private VerifyMove vMove(
       int lastMovePlayerId, Map<String, Object> lastState, List<Operation> lastMove) {
-    return new VerifyMove(wId, playersInfo,
+    return new VerifyMove(playersInfo,
         emptyState,
-        lastState, lastMove, lastMovePlayerId);
+        lastState, lastMove, lastMovePlayerId, ImmutableMap.<Integer, Integer>of());
   }
   
 //  @SuppressWarnings("static-access")
