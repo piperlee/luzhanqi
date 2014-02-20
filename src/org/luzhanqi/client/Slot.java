@@ -90,7 +90,7 @@ public class Slot {
   public ArrayList<Integer> calcAdjSlots(int key){
     ArrayList<Integer> adj = new ArrayList<Integer>();
     int i = key/5;
-    int j = key&5;
+    int j = key%5;
     // up 
     if ( i != 0 && i!= 6) adj.add((i-1)*5+j);
     if ( i == 6 && ( j == 0 || j == 2 || j == 4 )) 
@@ -99,10 +99,10 @@ public class Slot {
     if ( j != 4 ) adj.add(i*5+j+1);
     // down
     if ( i != 11 && i!= 5) adj.add((i+1)*5+j);
-    if ( i == 5 && ( j == 0 || j == 4 )) 
+    if ( i == 5 && ( j == 0 || j == 2 || j == 4 )) 
       adj.add((i+1)*5+j);
     // left
-    if ( j != 1 ) adj.add((i*5)+j-1);
+    if ( j != 0 ) adj.add((i*5)+j-1);
     
     // CAMPSITE with POST 
     switch(key){

@@ -9,12 +9,13 @@ import com.google.common.collect.ImmutableList;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Representation of the cheat game state.
- * The game state uses these keys: TURN : B/W/S
- *                                 BOARD: {pieceIdx...}//0-49, empty: -1
+ * Representation of the luzhanqi game state.
+ * The game state uses these keys: BOARD: {pieceIdx...}//0-49, empty: -1
  *                                 B: black pieces on board, 
  *                                 W: white pieces on board,
  *                                 D: discarded pieces
+ *                                 MOVE: {from, to} //slotIdx
+ *                                 DEPLOY: DEPLOY
  **/
 
 public class LuzhanqiState {
@@ -34,11 +35,14 @@ public class LuzhanqiState {
   private final ImmutableList<Integer> white;
   private final ImmutableList<Integer> black;
   private final ImmutableList<Integer> discard;
+  private final Optional<List<Integer>> move;
+  private final boolean isDeploy;
  
 
   public LuzhanqiState(Turn turn, ImmutableList<Integer> playerIds,
       ImmutableList<Optional<Slot>> board, ImmutableList<Integer> white,
-      ImmutableList<Integer> black, ImmutableList<Integer> discard) {
+      ImmutableList<Integer> black, ImmutableList<Integer> discard, 
+      Optional<List<Integer>> move, boolean isDeploy) {
     super();
     this.turn = checkNotNull(turn);
     this.playerIds = checkNotNull(playerIds);
@@ -46,6 +50,8 @@ public class LuzhanqiState {
     this.white = checkNotNull(white);
     this.black = checkNotNull(black);
     this.discard = checkNotNull(discard);
+    this.move = move;
+    this.isDeploy = isDeploy;
   }
 
   public Turn getTurn() {
@@ -90,5 +96,13 @@ public class LuzhanqiState {
 
   public ImmutableList<Integer> getDiscard() {
     return discard;
+  }
+  
+  public Optional<List<Integer>> getMove(){
+    return move;
+  }
+  
+  public boolean getIsDeploy(){
+    return isDeploy;
   }
 }
