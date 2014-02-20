@@ -22,22 +22,18 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class LuzhanqiLogic {
-  /* The entries used in the luzhanqi game are:
-   *   isCheater:yes, W, B, M, claim, C0...C51
-   *   turn, BOARD, W, B, D
+  /** The entries used in the luzhanqi game are:
+   *   turn, MOVE/DEPLOY, BOARD, W, B, D
    * When we send operations on these keys, it will always be in the above order.
    */
   private static final int sId = 1; // turn S dummy id
   private static final String W = "W"; // White hand
   private static final String B = "B"; // Black hand
   private static final String D = "D"; // Middle pile
-  //private static final String TURN = "TURN";
-  private static final String BOARD = "board";
- // private static final String C = "C"; // Card key (C0...C51)
- // private static final String FIRST = "first"; // first move after deploy pieces
+  private static final String BOARD = "board"; // map to a list contains board status
   private static final String DEPLOY = "deploy"; // moves at which players deploy pieces
-  private static final String MOVE = "move";
-  // private static final String YES = "yes"; // we claim we have a cheater
+  private static final String MOVE = "move"; // normal moves map to a list (fromSlot, toSlot)
+
 
   public VerifyMoveDone verify(VerifyMove verifyMove) {
     try {
@@ -69,7 +65,7 @@ public class LuzhanqiLogic {
     List<Integer> playerIds, int lastMovePlayerId) {
     /**
      * deploy pieces
-     * 0) new SetTurn(B)
+     * 0) new SetTurn(BId)
      * 1) new Set(DEPLOY)
      * 2) new Set BOARD
      * 3) new Set W 
@@ -137,7 +133,7 @@ public class LuzhanqiLogic {
   List<Operation> firstMove(LuzhanqiState state, List<Integer> board) {
      /**
       * first move
-      * 0) new SetTurn(B)
+      * 0) new SetTurn(Id)
       * 1) new Delete(DEPLOY)
       * 2) new Set BOARD
       * 3) new Set W 
@@ -159,12 +155,14 @@ public class LuzhanqiLogic {
     return operations;
   }
 
-  /** Returns the operations for making a claim (e.g., I put down 3 cards of rank K). */
+  /** Returns the operations for making normal Move
+   *  Move operation {MOVE,[1,2]} means move pieces from slot1 to slot2
+   */
   List<Operation> normalMove(LuzhanqiState state, List<Integer> board, 
       List<Integer> pieceMove, List<Integer> playerIds) {
     /**
      *  Normal move
-     *  0) new SetTurn(oppo)
+     *  0) new SetTurn(oppoId)
      *  1) new Set MOVE
      *  2) new Set BOARD
      *  3) new Set W 
@@ -230,7 +228,7 @@ public class LuzhanqiLogic {
       check(positionValid(state,slotFrom,slotTo),"position invalid");
      // check(beatValid(state,slotFrom,slotTo),"position invalid");
             
-      //end game: flag is beat
+      //End Game-I: flag is beaten
       if (slotTo.getPiece().getFace()==PieceType.FLAG){        
         apiBoard.set(slotFrom.getKey(), -1);
         apiBoard.set(slotTo.getKey(), slotFrom.getPiece().getKey());
@@ -332,9 +330,7 @@ public class LuzhanqiLogic {
         operations.add(new Set(B, bHand));
         operations.add(new Set(D, dHand));
       }
-      /** 
-       * EndGame: no piece to move
-       */
+      //End Game-II: no more piece to move
       boolean noneToMove = true;
       if(turn == Turn.W){
         for(int i:bHand){
@@ -417,6 +413,12 @@ public class LuzhanqiLogic {
     return false;
   }
 
+  /**
+   * Calculate the expected operations based on lastState, and check
+   * 1) if deploy pieces: BOARD object
+   * 2) if first move: SetVisibility
+   * 3) if normal move: MOVE object from last move.
+   */
   @SuppressWarnings("unchecked")
   List<Operation> getExpectedOperations(
       Map<String, Object> lastApiState, List<Operation> lastMove, List<Integer> playerIds,
@@ -449,11 +451,12 @@ public class LuzhanqiLogic {
     List<Operation> operations = Lists.newArrayList();
     /**
      *  Initial move
-     *  0) new SetTurn(S)
+     *  0) new SetTurn(sId)
      *  1) new Set BOARD
      *  2) new Set W 
      *  3) new Set B 
      *  4) new Set D
+     *  5) new SetVisibility(0-49)
      */
     operations.add(new SetTurn(sId));
     // set board
