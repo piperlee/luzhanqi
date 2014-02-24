@@ -25,7 +25,7 @@ public class LuzhanqiState {
   /**
    * Note that some of the entries will have null, meaning the card is not visible to us.
    */
-  private final ImmutableList<Optional<Slot>> board;
+  private final ImmutableList<Slot> board;
 
   /**
    * Index of the white pieces, each integer is in the range [0-24].
@@ -40,7 +40,7 @@ public class LuzhanqiState {
  
 
   public LuzhanqiState(Turn turn, ImmutableList<Integer> playerIds,
-      ImmutableList<Optional<Slot>> board, ImmutableList<Integer> white,
+      ImmutableList<Slot> board, ImmutableList<Integer> white,
       ImmutableList<Integer> black, ImmutableList<Integer> discard, 
       Optional<List<Integer>> move, boolean isDeploy) {
     super();
@@ -58,17 +58,17 @@ public class LuzhanqiState {
     return turn;
   }
   
-  public ImmutableList<Optional<Slot>> getBoard(){
+  public ImmutableList<Slot> getBoard(){
     return board;
   }
   
   public List<Integer> getApiBoard(){
     List<Integer> apiBoard = new ArrayList<Integer>();
-    for(Optional<Slot> s: board){
-      if(s.get().getPiece() == null){
+    for(Slot s: board){
+      if(s.getPiece() == null){
         apiBoard.add(-1);
       }else{
-        apiBoard.add(s.get().getPiece().getKey());
+        apiBoard.add(s.getPiece().getKey());
       }
     }
     return apiBoard;

@@ -88,5 +88,18 @@ public class Piece {
   public void setFace(PieceType f){
     this.face = f;
   }
+  
+  @Override
+  public final boolean equals(Object other) {
+    if (!(other instanceof Piece)) {
+      return false;
+    }
+    Piece p = (Piece)other;
+    return p.getKey() == this.key;
+  }
 
+  @Override
+  public final int hashCode() {
+    return Integer.valueOf(this.key).hashCode();
+  }
 }

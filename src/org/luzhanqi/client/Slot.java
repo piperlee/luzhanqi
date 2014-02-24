@@ -2,6 +2,8 @@ package org.luzhanqi.client;
 
 import java.util.ArrayList;
 
+import com.google.common.base.Optional;
+
 public class Slot {
   public enum SlotType {
     POST, CAMPSITE, HEADQUARTER // MOUNTAIN, FRONTLINE,
@@ -12,7 +14,7 @@ public class Slot {
   private boolean isEmpty;
   private boolean onRail;
   private ArrayList<Integer> adjSlots;
-  private Piece curPiece;
+  private Optional<Piece> curPiece;
   private boolean visited;
   
   public Slot(int key, int pieceKey){
@@ -46,7 +48,9 @@ public class Slot {
   }
   
   public Piece getPiece(){
-    return this.curPiece;
+    if (this.curPiece.isPresent())
+      return this.curPiece.get();
+    return null;
   }
   
   public boolean getVisited(){
@@ -140,13 +144,13 @@ public class Slot {
     return adj;
   }
 
-  public Piece calcPiece(int pieceKey){
-    if (pieceKey == -1) return null;
-    return new Piece(pieceKey);
+  public Optional<Piece> calcPiece(int pieceKey){
+    if (pieceKey == -1) return Optional.<Piece>absent();
+    return Optional.<Piece>of(new Piece(pieceKey));
   }
   
   public void setPiece(Piece p){
-    this.curPiece = p; 
+    this.curPiece = Optional.<Piece>of(p); 
     this.isEmpty = false;
   }
   
@@ -157,5 +161,19 @@ public class Slot {
   
   public boolean isAdj(int key2){
     return this.adjSlots.contains(key2);
+  }
+  
+  @Override
+  public final boolean equals(Object other) {
+    if (!(other instanceof Slot)) {
+      return false;
+    }
+    Slot s = (Slot)other;
+    return s.getKey() == this.key;
+  }
+
+  @Override
+  public final int hashCode() {
+    return Integer.valueOf(this.key).hashCode();
   }
 }

@@ -206,8 +206,8 @@ public class LuzhanqiLogic {
     }
     operations.add(new Set(MOVE,pieceMove));
     ArrayList<Integer> apiBoard = Lists.newArrayList(board);
-    Slot slotFrom = state.getBoard().get(pieceMove.get(0)).get();
-    Slot slotTo = state.getBoard().get(pieceMove.get(1)).get();
+    Slot slotFrom = state.getBoard().get(pieceMove.get(0));
+    Slot slotTo = state.getBoard().get(pieceMove.get(1));
     
     /**
      *  Move with no beat
@@ -374,11 +374,11 @@ public class LuzhanqiLogic {
         //no block
         if(iFrom == iTo){
           for(int j=Math.min(jFrom,jTo)+1; j<Math.max(jFrom,jTo); j++){
-            check(state.getBoard().get(iFrom*5+j).get().getPiece()==null,"block exists");
+            check(state.getBoard().get(iFrom*5+j).getPiece()==null,"block exists");
           }
         }else if(jFrom == jTo){
           for(int i=Math.min(iFrom,iTo)+1; i<Math.max(iFrom,iTo); i++){
-            check(state.getBoard().get(i*5+jFrom).get().getPiece()==null,"block exists");
+            check(state.getBoard().get(i*5+jFrom).getPiece()==null,"block exists");
           }
         }
       }
@@ -398,14 +398,14 @@ public class LuzhanqiLogic {
     while (!Q.isEmpty()){
       Slot cur = Q.pollFirst();
       for (int i:cur.getAdjSlots()){
-        if(state.getBoard().get(i).get().getKey()==to.getKey()){
+        if(state.getBoard().get(i).getKey()==to.getKey()){
           return true;
         }
-        if (state.getBoard().get(i).get().getOnRail()){
-          if ((!state.getBoard().get(i).get().getVisited()) 
-              && state.getBoard().get(i).get().emptySlot()){
-            Q.add(state.getBoard().get(i).get());
-            state.getBoard().get(i).get().setVisited(true);
+        if (state.getBoard().get(i).getOnRail()){
+          if ((!state.getBoard().get(i).getVisited()) 
+              && state.getBoard().get(i).emptySlot()){
+            Q.add(state.getBoard().get(i));
+            state.getBoard().get(i).setVisited(true);
           }
         }
       }
@@ -424,7 +424,7 @@ public class LuzhanqiLogic {
       Map<String, Object> lastApiState, List<Operation> lastMove, List<Integer> playerIds,
       int lastMovePlayerId) {
     if (lastApiState.isEmpty()) {
-      return getInitialMove(playerIds.get(0), playerIds.get(1));
+      return getInitialMove(playerIds);
     }
     // remember to deal with W:0, B:1, S:2
     LuzhanqiState lastState = gameApiStateToLuzhanqiState(lastApiState,
@@ -435,7 +435,8 @@ public class LuzhanqiLogic {
     // 3) normal move
     if (lastMove.contains(new Set(DEPLOY,DEPLOY))) {
       Set setBoard = (Set)lastMove.get(2);
-      return deployPiecesMove(lastState, (List<Integer>)setBoard.getValue(), playerIds, lastMovePlayerId);
+      return deployPiecesMove(lastState, (List<Integer>)setBoard.getValue(), 
+          playerIds, lastMovePlayerId);
 
     }else if (lastMove.contains(new Delete(DEPLOY))) {
       return firstMove(lastState,(List<Integer>)lastApiState.get(BOARD));
@@ -447,7 +448,9 @@ public class LuzhanqiLogic {
     }
   }
 
-  List<Operation> getInitialMove(int whitePlayerId, int blackPlayerId) {
+  List<Operation> getInitialMove(List<Integer> playerIds){
+    int whitePlayerId = playerIds.get(0);
+    int blackPlayerId = playerIds.get(1);
     List<Operation> operations = Lists.newArrayList();
     /**
      *  Initial move
@@ -491,14 +494,10 @@ public class LuzhanqiLogic {
   }
 
   @SuppressWarnings("unchecked")
-  private LuzhanqiState gameApiStateToLuzhanqiState(Map<String, Object> gameApiState,
+  LuzhanqiState gameApiStateToLuzhanqiState(Map<String, Object> gameApiState,
       Turn turn, List<Integer> playerIds) {
-    List<Optional<Slot>> board = Lists.newArrayList();
     List<Integer> apiBoard = (List<Integer>) gameApiState.get(BOARD);   
-    for (int i = 0; i < 60; i++) {
-      Slot slot = new Slot(i,apiBoard.get(i));
-      board.add(Optional.fromNullable(slot));
-    }
+    List<Slot> board = getBoardFromApiBoard(apiBoard);
     List<Integer> white = (List<Integer>) gameApiState.get(W);
     List<Integer> black = (List<Integer>) gameApiState.get(B);
     List<Integer> discard = (List<Integer>) gameApiState.get(D);
@@ -512,6 +511,14 @@ public class LuzhanqiLogic {
         gameApiState.containsKey(DEPLOY));
   }
 
+  static List<Slot> getBoardFromApiBoard(List<Integer> apiBoard){
+    List<Slot> board = Lists.newArrayList();
+    for (int i = 0; i < 60; i++) {
+      Slot slot = new Slot(i,apiBoard.get(i));
+      board.add(slot);
+    }
+    return board;
+  }
   // copy from CheatLogic.java
   <T> List<T> concat(List<T> a, List<T> b) {
     return Lists.newArrayList(Iterables.concat(a, b));

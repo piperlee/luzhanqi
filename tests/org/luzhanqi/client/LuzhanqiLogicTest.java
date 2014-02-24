@@ -46,7 +46,8 @@ public class LuzhanqiLogicTest {
   private static final String BOARD = "board"; 
   private final Map<String, Object> wInfo = ImmutableMap.<String, Object>of(playerId, wId);
   private final Map<String, Object> bInfo = ImmutableMap.<String, Object>of(playerId, bId);
-  private final List<Map<String, Object>> playersInfo = ImmutableList.of(wInfo, bInfo);
+  private final Map<String, Object> sInfo = ImmutableMap.<String, Object>of(playerId, sId);
+  private final List<Map<String, Object>> playersInfo = ImmutableList.of(wInfo, bInfo, sInfo);
   private final Map<String, Object> emptyState = ImmutableMap.<String, Object>of();
   private final Map<String, Object> nonEmptyState = ImmutableMap.<String, Object>of("k", "v");
   
@@ -118,12 +119,12 @@ public class LuzhanqiLogicTest {
   }
   
   private List<Operation> getInitialOperations() {
-    return luzhanqiLogic.getInitialMove(wId, bId);
+    return luzhanqiLogic.getInitialMove(ImmutableList.of(wId, bId));
   }
 
   @Test
   public void testGetInitialOperationsSize() {
-    assertEquals(5 + 25 + 25, luzhanqiLogic.getInitialMove(wId, bId).size());
+    assertEquals(5 + 25 + 25, luzhanqiLogic.getInitialMove(ImmutableList.of(wId, bId)).size());
   }
 
   @Test
